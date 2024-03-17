@@ -25,22 +25,41 @@ services:
       - laravel
 
   mysql:
-    image: mariadb:10.3.35
+    platform: linux/x86_64
+    image: percona:8.0.36-28-centos
     restart: unless-stopped
     tty: true
     ports:
-      - "3308:3306"
+      - "3388:3306"
     environment:
-      MYSQL_DATABASE: homestead
-      MYSQL_USER: homestead
+      MYSQL_DATABASE: app
+      MYSQL_USER: app
       MYSQL_PASSWORD: secret
       MYSQL_ROOT_PASSWORD: secret
       SERVICE_TAGS: dev
-      SERVICE_NAME: mysql
+      SERVICE_NAME: percona
     networks:
       - laravel
     volumes:
       - ./mysql:/var/lib/mysql
+
+ #  mysql:
+ #    image: mariadb:10.3.35
+ #    restart: unless-stopped
+ #    tty: true
+ #    ports:
+ #      - "3308:3306"
+ #    environment:
+ #      MYSQL_DATABASE: app
+ #      MYSQL_USER: app
+ #      MYSQL_PASSWORD: secret
+ #      MYSQL_ROOT_PASSWORD: secret
+ #      SERVICE_TAGS: dev
+ #      SERVICE_NAME: mysql
+ #    networks:
+ #      - laravel
+ #    volumes:
+ #      - ./mysql:/var/lib/mysql
 
   php:
     build:

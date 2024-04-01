@@ -76,7 +76,7 @@ services:
       - laravel
 
   redis:
-    image: redis:alpine
+    image: 7.2.4-alpine3.19
     restart: unless-stopped
     ports:
       - "6379:6379"
@@ -99,7 +99,7 @@ services:
       - laravel
 
   npm:
-    image: node:current-alpine
+    image: 21.7.0-alpine3.19
     volumes:
       - ./src:/var/www/html
     ports:

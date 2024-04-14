@@ -24,9 +24,27 @@ services:
     networks:
       - laravel
 
+  # mysql:
+  #   platform: linux/x86_64
+  #   image: percona:8.0.36-28-centos
+  #   restart: unless-stopped
+  #   tty: true
+  #   ports:
+  #     - "3388:3306"
+  #   environment:
+  #     MYSQL_DATABASE: app
+  #     MYSQL_USER: app
+  #     MYSQL_PASSWORD: secret
+  #     MYSQL_ROOT_PASSWORD: secret
+  #     SERVICE_TAGS: dev
+  #     SERVICE_NAME: percona
+  #   networks:
+  #     - laravel
+  #   volumes:
+  #     - ./mysql:/var/lib/mysql
+
   mysql:
-    platform: linux/x86_64
-    image: percona:8.0.36-28-centos
+    image: mariadb:10.3.35
     restart: unless-stopped
     tty: true
     ports:
@@ -37,29 +55,11 @@ services:
       MYSQL_PASSWORD: secret
       MYSQL_ROOT_PASSWORD: secret
       SERVICE_TAGS: dev
-      SERVICE_NAME: percona
+      SERVICE_NAME: mysql
     networks:
       - laravel
     volumes:
       - ./mysql:/var/lib/mysql
-
- #  mysql:
- #    image: mariadb:10.3.35
- #    restart: unless-stopped
- #    tty: true
- #    ports:
- #      - "3388:3306"
- #    environment:
- #      MYSQL_DATABASE: app
- #      MYSQL_USER: app
- #      MYSQL_PASSWORD: secret
- #      MYSQL_ROOT_PASSWORD: secret
- #      SERVICE_TAGS: dev
- #      SERVICE_NAME: mysql
- #    networks:
- #      - laravel
- #    volumes:
- #      - ./mysql:/var/lib/mysql
 
   php:
     build:
@@ -76,7 +76,7 @@ services:
       - laravel
 
   redis:
-    image: 7.2.4-alpine3.19
+    image: redis:7.2.4-alpine3.19
     restart: unless-stopped
     ports:
       - "6379:6379"
@@ -99,7 +99,7 @@ services:
       - laravel
 
   npm:
-    image: 21.7.0-alpine3.19
+    image: node:21.7.0-alpine3.19
     volumes:
       - ./src:/var/www/html
     ports:

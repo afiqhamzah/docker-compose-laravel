@@ -133,3 +133,14 @@ services:
       - "8025:8025"
     networks:
       - laravel
+
+  phpmyadmin:
+   image: phpmyadmin
+   restart: always
+   ports:
+     - 8088:80
+   environment:
+     - PMA_ARBITRARY=1
+   # remember to add host_docker_internal 127.0.0.1 to operating system host file to access mysql server
+
+   
